@@ -13,7 +13,7 @@ It can be completed in any of the following programming languages:
 
 ## How to complete the test
 
-Download or Fork the code in this repository and complete the test using your programming language of choice.
+Download the code in this repository and complete the test using your programming language of choice.
 For each language, there is a unit test file and an example simulation program to help get you started.
 
 When your solution is ready, send us the link to your submission (e.g. public Github repository or similar). 
@@ -48,10 +48,10 @@ Pretty simple, right? Well this is where it gets interesting:
 - Once the sell by date has passed, `Quality` degrades twice as fast
 - The `Quality` of an item is never negative
 - __"Aged Brie"__ actually increases in `Quality` the older it gets
-- The `Quality` of an item is never more than `50`
+- The `Quality` of an item is never more than `40`
 - __"Sulfuras"__, being a legendary item, never has to be sold or decreases in `Quality`
 - __"Backstage passes"__, like aged brie, increases in `Quality` as its `SellIn` value approaches;
-	- `Quality` increases by `2` when there are `10` days or less and by `3` when there are `5` days or less but
+	- `Quality` increases by `3` when there are `7` days or less and by `4` when there are `2` days or less but
 	- `Quality` drops to `0` after the concert
 
 We have recently signed a supplier of conjured items. This requires an update to our system:
