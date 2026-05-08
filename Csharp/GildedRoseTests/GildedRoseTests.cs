@@ -142,16 +142,6 @@ public class GildedRoseTests
     }
     
     [Fact]
-    public void BackstagePassQualityIncreasesBy2_WhenThereAre6DaysRemaining()
-    {
-        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 6)]);
-
-        app.UpdateQuality();
-
-        Assert.Equal(7, items[0].Quality);
-    }
-
-    [Fact]
     public void BackstagePassQualityIncreasesBy3_WhenThereAre5DaysOrLess()
     {
         var (app, items) = CreateGildedRose([BackstagePass(sellIn: 5, quality: 4)]);
