@@ -43,10 +43,7 @@ public class GildedRose
 
                     if (item.SellIn < 6)
                     {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality += 1;
-                        }
+                        IncreaseItemQuality(item);
                     }
                 }
             }
