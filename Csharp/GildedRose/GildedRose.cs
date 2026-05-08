@@ -36,10 +36,7 @@ public class GildedRose
             DecrementQuality(item);
         }
 
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            item.SellIn -= 1;
-        }
+        DecreaseItemSellIn(item);
 
         if (item.SellIn < 0)
         {
@@ -61,6 +58,14 @@ public class GildedRose
                     }
                 }
             }
+        }
+    }
+
+    private static void DecreaseItemSellIn(Item item)
+    {
+        if (item.Name != "Sulfuras, Hand of Ragnaros")
+        {
+            item.SellIn -= 1;
         }
     }
 
