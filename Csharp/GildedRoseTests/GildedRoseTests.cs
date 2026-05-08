@@ -118,8 +118,6 @@ public class GildedRoseTests
 
         Assert.Equal(40, items[0].Quality);
     }
-    
-    //Tests below here need to be changed to follow new rules later.
 
     [Fact]
     public void BackstagePassQualityIncreasesBy1_WhenThereAre8DaysOrMore()
