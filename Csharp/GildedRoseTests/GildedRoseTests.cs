@@ -74,13 +74,23 @@ public class GildedRoseTests
     }
     
     [Fact]
-    public void SulfurasSellByDateNeverChanges_WhenADayPasses()
+    public void SulfurasSellInDateNeverChanges_WhenADayPasses()
     {
-        var (app, items) = CreateGildedRose([Sulfuras()]);
+        var (app, items) = CreateGildedRose([Sulfuras(sellIn: 5)]);
         
         app.UpdateQuality();
         
         Assert.Equal(5, items[0].SellIn);
+    } 
+    
+    [Fact]
+    public void SulfurasQualityNeverChanges_WhenADayPasses()
+    {
+        var (app, items) = CreateGildedRose([Sulfuras(quality: 5)]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(5, items[0].Quality);
     } 
        
     [Fact]
@@ -100,7 +110,7 @@ public class GildedRoseTests
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 50)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 50)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 49)]
-    public void QualityNeverGoesAbove40_WhenADayPasses(string name, int sellIn, int quality)
+    public void QualityNeverGoesAbove50_WhenADayPasses(string name, int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
 
