@@ -67,10 +67,7 @@ public class GildedRose
 
     private static void DecreaseItemSellIn(Item item)
     {
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            item.SellIn -= 1;
-        }
+        item.SellIn -= 1;
     }
 
     private static void UpdateBackstagePasses(Item item)
