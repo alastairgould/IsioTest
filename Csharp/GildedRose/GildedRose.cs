@@ -34,7 +34,6 @@ public class GildedRose
         if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
         {
             UpdateBackstagePasses(item);
-            DecreaseItemSellIn(item);
             return;
         }
         
@@ -77,6 +76,8 @@ public class GildedRose
         {
             SetItemToZeroQuality(item);
         }        
+
+        DecreaseItemSellIn(item);
     }
 
     private static void SetItemToZeroQuality(Item item)
