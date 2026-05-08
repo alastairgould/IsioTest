@@ -61,6 +61,7 @@ public class GildedRose
         {
             IncreaseItemQuality(item);
         }
+        
         DecreaseItemSellIn(item);
     }
 
