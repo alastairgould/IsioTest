@@ -38,6 +38,11 @@ public class GildedRose
             return;
         }
         
+        StandardItem(item);
+    }
+
+    private static void StandardItem(Item item)
+    {
         DecrementQuality(item);
 
         if (item.SellIn <= 0) 
@@ -57,7 +62,6 @@ public class GildedRose
             IncreaseItemQuality(item);
         }
         DecreaseItemSellIn(item);
-        return;
     }
 
     private static void DecreaseItemSellIn(Item item)
