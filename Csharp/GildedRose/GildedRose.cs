@@ -24,6 +24,11 @@ public class GildedRose
         if (item.Name == "Aged Brie")
         {
             IncreaseItemQuality(item);
+
+            if (item.SellIn <= 0)
+            {
+                IncreaseItemQuality(item);
+            }
         }
         
         if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
@@ -41,7 +46,6 @@ public class GildedRose
         {
             if (item.Name == "Aged Brie")
             {
-                IncreaseItemQuality(item);
             }
             else
             {
