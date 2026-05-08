@@ -48,13 +48,8 @@ public class GildedRose
 
     private static void StandardItem(Item item)
     {
-        DecrementQuality(item);
-
-        if (item.SellIn <= 0)
-        {
-            DecrementQuality(item);
-        }
-
+        var decayRate = item.SellIn <= 0 ? 2 : 1;
+        DecreaseItemQuality(item, decayRate);
         item.SellIn -= 1;
     }
 
@@ -101,11 +96,13 @@ public class GildedRose
         }
     }
 
-    private static void DecrementQuality(Item item)
+    private static void DecreaseItemQuality(Item item, int amount)
     {
-        if (item.Quality > 0)
+        item.Quality -= amount;
+        
+        if (item.Quality < 0)
         {
-            item.Quality -= 1;
+            item.Quality = 0;
         }
     }
 }
