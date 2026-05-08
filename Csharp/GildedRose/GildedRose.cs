@@ -4,6 +4,8 @@ namespace GildedRoseKata;
 
 public class GildedRose
 {
+    private const int MaxQuality = 40;
+
     IList<Item> Items;
 
     public GildedRose(IList<Item> items)
@@ -21,19 +23,19 @@ public class GildedRose
 
     private static void UpdateItemQuality(Item item)
     {
-        if (item.Name == "Aged Brie")
+        if (item.Name is "Aged Brie")
         {
             UpdateAgingBrie(item);
             return;
         }
-        
+
         if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
         {
             UpdateBackstagePasses(item);
             return;
         }
 
-        if (item.Name == "Sulfuras, Hand of Ragnaros")
+        if (item.Name is "Sulfuras, Hand of Ragnaros")
         {
             return;
         }
@@ -90,7 +92,7 @@ public class GildedRose
 
     private static void IncreaseItemQuality(Item item)
     {
-        if (item.Quality < 40)
+        if (item.Quality < MaxQuality)
         {
             item.Quality += 1;
         }
