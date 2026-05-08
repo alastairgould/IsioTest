@@ -15,20 +15,13 @@ public class GildedRose
     {
         foreach (var item in Items)
         {
-            UpdateItem(item);
+            UpdateItemQuality(item);
         }
     }
 
-    private static void UpdateItem(Item item)
+    private static void UpdateItemQuality(Item item)
     {
-        if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                DecrementQuality(item);
-            }
-        }
-        else
+        if (item.Name == "Aged Brie" || item.Name == "Backstage passes to a TAFKAL80ETC concert")
         {
             IncreaseItemQuality(item);
 
@@ -43,6 +36,13 @@ public class GildedRose
                 {
                     IncreaseItemQuality(item);
                 }
+            }
+        }
+        else
+        {
+            if (item.Name != "Sulfuras, Hand of Ragnaros")
+            {
+                DecrementQuality(item);
             }
         }
 
