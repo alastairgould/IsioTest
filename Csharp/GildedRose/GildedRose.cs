@@ -34,14 +34,16 @@ public class GildedRose
         if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
         {
             UpdateBackstagePasses(item);
+            DecreaseItemSellIn(item);
+            return;
         }
         
-        if (item.Name != "Sulfuras, Hand of Ragnaros" && item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+        if (item.Name != "Sulfuras, Hand of Ragnaros" && item.Name != "Aged Brie")
         {
             DecrementQuality(item);
         }
 
-        if (item is { SellIn: <= 0, Name: not "Aged Brie" and not "Backstage passes to a TAFKAL80ETC concert" } && item.Name != "Sulfuras, Hand of Ragnaros")
+        if (item is { SellIn: <= 0, Name: not "Aged Brie" } && item.Name != "Sulfuras, Hand of Ragnaros")
         {
             DecrementQuality(item);
         }
