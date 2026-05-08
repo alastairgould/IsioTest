@@ -32,13 +32,15 @@ public class GildedRose
             UpdateBackstagePasses(item);
             return;
         }
-        
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            DecrementQuality(item);
-        }
 
-        if (item is { SellIn: <= 0 } && item.Name != "Sulfuras, Hand of Ragnaros")
+        if (item.Name == "Sulfuras, Hand of Ragnaros")
+        {
+            return;
+        }
+        
+        DecrementQuality(item);
+
+        if (item is { SellIn: <= 0 }) 
         {
             DecrementQuality(item);
         }
