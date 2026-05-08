@@ -27,7 +27,18 @@ public class GildedRoseTests
         
         Assert.Equal(1, items[0].SellIn);
     }
-   
+  
+    [Theory]
+    [InlineData("foo")]
+    public void QualityDegradesByOne_WhenNotPastSellByDate(string name)
+    {
+        var (app, items) = CreateGildedRose([GenericItem(name, quality: 10)]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(9, items[0].Quality);
+    }
+    
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
