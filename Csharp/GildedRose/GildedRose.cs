@@ -62,10 +62,7 @@ public class GildedRose
                 {
                     if (item.Name != "Sulfuras, Hand of Ragnaros")
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality -= 1;
-                        }
+                        DecrementQuality(item);
                     }
                 }
                 else
