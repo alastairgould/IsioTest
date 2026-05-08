@@ -69,12 +69,13 @@ public class GildedRose
     {
         IncreaseItemQuality(item);
 
-        if (item.SellIn < 11)
+        if (item.SellIn <= 7)
         {
+            IncreaseItemQuality(item);
             IncreaseItemQuality(item);
         }
 
-        if (item.SellIn < 6)
+        if (item.SellIn <= 2)
         {
             IncreaseItemQuality(item);
         }
