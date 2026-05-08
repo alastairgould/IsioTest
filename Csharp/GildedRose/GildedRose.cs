@@ -59,16 +59,16 @@ public class GildedRose
             }
             else
             {
-                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    SetItemToZeroQuality(item);
+                }
+                else
                 {
                     if (item.Name != "Sulfuras, Hand of Ragnaros")
                     {
                         DecrementQuality(item);
                     }
-                }
-                else
-                {
-                    SetItemToZeroQuality(item);
                 }
             }
         }
