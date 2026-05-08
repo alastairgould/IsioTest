@@ -6,7 +6,7 @@ public class GildedRose
 {
     private const int MaxQuality = 40;
 
-    IList<Item> Items;
+    private IList<Item> Items;
 
     public GildedRose(IList<Item> items)
     {
