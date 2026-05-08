@@ -122,9 +122,9 @@ public class GildedRoseTests
     //Tests below here need to be changed to follow new rules later.
 
     [Fact]
-    public void BackstagePassQualityIncreasesBy1_WhenThereAre11DaysOrMore()
+    public void BackstagePassQualityIncreasesBy1_WhenThereAre8DaysOrMore()
     {
-        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 11)]);
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 8)]);
         
         app.UpdateQuality();
         
@@ -132,23 +132,23 @@ public class GildedRoseTests
     }
     
     [Fact]
-    public void BackstagePassQualityIncreasesBy2_WhenThereAre10DaysOrLess()
+    public void BackstagePassQualityIncreasesBy3_WhenThereAre7DaysOrLess()
     {
-        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 10)]);
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 7)]);
         
         app.UpdateQuality();
         
-        Assert.Equal(7, items[0].Quality);
+        Assert.Equal(8, items[0].Quality);
     }
     
     [Fact]
-    public void BackstagePassQualityIncreasesBy3_WhenThereAre5DaysOrLess()
+    public void BackstagePassQualityIncreasesBy4_WhenThereAre2DaysOrLess()
     {
-        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 5, quality: 4)]);
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 4)]);
         
         app.UpdateQuality();
         
-        Assert.Equal(7, items[0].Quality);
+        Assert.Equal(8, items[0].Quality);
     }
     
     [Fact]
