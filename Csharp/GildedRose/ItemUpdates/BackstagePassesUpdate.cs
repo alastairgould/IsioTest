@@ -16,7 +16,7 @@ internal class BackstagePassesUpdate : IUpdateItem
         }
         else
         {
-            IncreaseQuality(item, 1);
+            IncreaseQuality(item);
         }
 
         if (item.SellIn <= 0)
