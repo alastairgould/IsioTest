@@ -99,6 +99,7 @@ public class GildedRoseTests
     [InlineData("Aged Brie", 0, 39)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 40)]
     [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 40)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 39)]
     public void QualityNeverGoesAbove40_WhenADayPasses(string name, int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
@@ -109,7 +110,7 @@ public class GildedRoseTests
     }
     
     //Tests below here need to be changed to follow new rules later.
-    
+
     [Fact]
     public void BackstagePassQualityIncreasesBy1_WhenThereAre11DaysOrMore()
     {
@@ -139,8 +140,17 @@ public class GildedRoseTests
         
         Assert.Equal(7, items[0].Quality);
     }
-
     
+    [Fact]
+    public void BackstagePassQualityDoesNotExceedCap_WhenWithin6Days()
+    {
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 49)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(50, items[0].Quality);
+    }
+
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
