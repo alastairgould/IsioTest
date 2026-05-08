@@ -91,6 +91,20 @@ public class GildedRoseTests
         
         Assert.Equal(5, items[0].SellIn);
     } 
+   
+    [Theory]
+    [InlineData("Aged Brie", 1, 50)]
+    [InlineData("Aged Brie", 0, 49)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 50)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 50)]
+    public void QualityNeverGoesAbove50_WhenADayPasses(string name, int sellIn, int quality)
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(50, items[0].Quality);
+    }
     
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
