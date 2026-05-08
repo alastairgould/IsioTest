@@ -21,7 +21,12 @@ public class GildedRose
 
     private static void UpdateItemQuality(Item item)
     {
-        if (item.Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert")
+        if (item.Name == "Aged Brie")
+        {
+            IncreaseItemQuality(item);
+        }
+        
+        if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
         {
             IncreaseItemQuality(item);
 
@@ -40,7 +45,7 @@ public class GildedRose
         }
         else
         {
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
+            if (item.Name != "Sulfuras, Hand of Ragnaros" && item.Name != "Aged Brie")
             {
                 DecrementQuality(item);
             }
