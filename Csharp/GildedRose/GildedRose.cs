@@ -36,9 +36,8 @@ public class GildedRose
             DecrementQuality(item);
         }
 
-        DecreaseItemSellIn(item);
 
-        if (item.SellIn < 0)
+        if (item.SellIn <= 0)
         {
             if (item.Name == "Aged Brie")
             {
@@ -59,6 +58,8 @@ public class GildedRose
                 }
             }
         }
+        
+        DecreaseItemSellIn(item);
     }
 
     private static void DecreaseItemSellIn(Item item)
