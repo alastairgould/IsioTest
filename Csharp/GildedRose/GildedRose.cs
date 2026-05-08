@@ -41,7 +41,6 @@ public class GildedRose
             DecrementQuality(item);
         }
 
-
         if (item is { SellIn: <= 0, Name: not "Aged Brie" and not "Backstage passes to a TAFKAL80ETC concert" } && item.Name != "Sulfuras, Hand of Ragnaros")
         {
             DecrementQuality(item);
