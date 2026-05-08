@@ -40,7 +40,7 @@ public class GildedRose
         
         DecrementQuality(item);
 
-        if (item is { SellIn: <= 0 }) 
+        if (item.SellIn <= 0) 
         {
             DecrementQuality(item);
         }
