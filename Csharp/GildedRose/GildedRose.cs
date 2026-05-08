@@ -5,6 +5,9 @@ namespace GildedRoseKata;
 public class GildedRose
 {
     private const int MaxQuality = 40;
+    private const string AgedBrie = "Aged Brie";
+    private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+    private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
 
     private IList<Item> Items;
 
@@ -23,19 +26,19 @@ public class GildedRose
 
     private static void UpdateItemQuality(Item item)
     {
-        if (item.Name is "Aged Brie")
+        if (item.Name is AgedBrie)
         {
             UpdateAgingBrie(item);
             return;
         }
 
-        if (item.Name is "Backstage passes to a TAFKAL80ETC concert")
+        if (item.Name is BackstagePasses)
         {
             UpdateBackstagePasses(item);
             return;
         }
 
-        if (item.Name is "Sulfuras, Hand of Ragnaros")
+        if (item.Name is Sulfuras)
         {
             return;
         }
