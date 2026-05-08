@@ -8,6 +8,7 @@ public class GildedRose
     private const string AgedBrie = "Aged Brie";
     private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
     private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
+    private const string Conjured = "Conjured";
 
     private IList<Item> Items;
 
@@ -42,13 +43,19 @@ public class GildedRose
         {
             return;
         }
-        
+
+        if (item.Name is Conjured)
+        {
+            StandardItem(item, decayMultiplier: 2);
+            return;
+        }
+
         StandardItem(item);
     }
 
-    private static void StandardItem(Item item)
+    private static void StandardItem(Item item, int decayMultiplier = 1)
     {
-        var decayRate = item.SellIn <= 0 ? 2 : 1;
+        var decayRate = (item.SellIn <= 0 ? 2 : 1) * decayMultiplier;
         DecreaseItemQuality(item, decayRate);
         item.SellIn -= 1;
     }

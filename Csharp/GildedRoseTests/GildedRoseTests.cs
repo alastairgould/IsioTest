@@ -161,13 +161,47 @@ public class GildedRoseTests
         Assert.Equal(40, items[0].Quality);
     }
 
+    [Fact]
+    public void ConjuredQualityDegradesByTwo_WhenNotPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: 5, quality: 10)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(8, items[0].Quality);
+    }
+
+    [Fact]
+    public void ConjuredQualityDegradesByFour_WhenPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: 0, quality: 10)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(6, items[0].Quality);
+    }
+
+    [Theory]
+    [InlineData(5, 1)]
+    [InlineData(0, 3)]
+    public void ConjuredQualityNeverGoesBelowZero_WhenADayPasses(int sellIn, int quality)
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: sellIn, quality: quality)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(0, items[0].Quality);
+    }
+
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
-   
+
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
 
     private Item AgedBrie(int sellIn = 1, int quality = 10) => new() { Name = "Aged Brie", SellIn = sellIn, Quality = quality };
 
     private Item Sulfuras(int sellIn = 5, int quality = 5) => new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = sellIn, Quality = quality };
 
-    private Item BackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality }; 
+    private Item BackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality };
+
+    private Item Conjured(int sellIn = 5, int quality = 10) => new() { Name = "Conjured", SellIn = sellIn, Quality = quality };
 }
