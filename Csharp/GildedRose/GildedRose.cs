@@ -30,17 +30,14 @@ public class GildedRose
         {
             IncreaseItemQuality(item);
 
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (item.SellIn < 11)
             {
-                if (item.SellIn < 11)
-                {
-                    IncreaseItemQuality(item);
-                }
+                IncreaseItemQuality(item);
+            }
 
-                if (item.SellIn < 6)
-                {
-                    IncreaseItemQuality(item);
-                }
+            if (item.SellIn < 6)
+            {
+                IncreaseItemQuality(item);
             }
         }
         else
