@@ -76,7 +76,7 @@ public class GildedRose
 
     private static void SetItemToZeroQuality(Item item)
     {
-        item.Quality -= item.Quality;
+        item.Quality = 0;
     }
 
     private static void IncreaseItemQuality(Item item)
