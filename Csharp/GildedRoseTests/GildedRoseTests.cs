@@ -91,7 +91,17 @@ public class GildedRoseTests
         
         Assert.Equal(5, items[0].SellIn);
     } 
-   
+       
+    [Fact]
+    public void BackstagePassQualityDropsToZero_WhenSellInDropsBelowZero()
+    {
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 0)]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(0, items[0].Quality);
+        Assert.Equal(-1, items[0].SellIn);;
+    }
     
     //Tests below here need to be changed to follow new rules later.
     
@@ -138,6 +148,7 @@ public class GildedRoseTests
         
         Assert.Equal(7, items[0].Quality);
     }
+
     
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
