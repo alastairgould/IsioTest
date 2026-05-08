@@ -6,15 +6,6 @@ namespace GildedRoseTests;
 
 public class GildedRoseTests
 {
-    [Fact]
-    public void ExampleTest()
-    {
-        IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
-        GildedRose app = new GildedRose(Items);
-        app.UpdateQuality();
-        Assert.Equal("fixme", Items[0].Name);
-    }
-    
     [Theory]
     [InlineData("foo")]
     [InlineData("Aged Brie")]
@@ -103,21 +94,21 @@ public class GildedRoseTests
         Assert.Equal(-1, items[0].SellIn);;
     }
     
-    //Tests below here need to be changed to follow new rules later.
-    
     [Theory]
-    [InlineData("Aged Brie", 1, 50)]
-    [InlineData("Aged Brie", 0, 49)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 50)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 50)]
-    public void QualityNeverGoesAbove50_WhenADayPasses(string name, int sellIn, int quality)
+    [InlineData("Aged Brie", 1, 40)]
+    [InlineData("Aged Brie", 0, 39)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 40)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 40)]
+    public void QualityNeverGoesAbove40_WhenADayPasses(string name, int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
 
         app.UpdateQuality();
 
-        Assert.Equal(50, items[0].Quality);
+        Assert.Equal(40, items[0].Quality);
     }
+    
+    //Tests below here need to be changed to follow new rules later.
     
     [Fact]
     public void BackstagePassQualityIncreasesBy1_WhenThereAre11DaysOrMore()
