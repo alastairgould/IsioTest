@@ -92,6 +92,9 @@ public class GildedRoseTests
         Assert.Equal(5, items[0].SellIn);
     } 
    
+    
+    //Tests below here need to be changed to follow new rules later.
+    
     [Theory]
     [InlineData("Aged Brie", 1, 50)]
     [InlineData("Aged Brie", 0, 49)]
@@ -106,6 +109,26 @@ public class GildedRoseTests
         Assert.Equal(50, items[0].Quality);
     }
     
+    [Fact]
+    public void BackstagePassQualityIncreasesBy1_WhenThereAre11DaysOrMore()
+    {
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 11)]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(6, items[0].Quality);
+    }
+    
+    [Fact]
+    public void BackstagePassQualityIncreasesBy2_WhenThereAre10DaysOrLess()
+    {
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 10)]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(7, items[0].Quality);
+    }
+    
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
@@ -114,4 +137,5 @@ public class GildedRoseTests
 
     private Item Sulfuras(int sellIn = 5, int quality = 5) => new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = sellIn, Quality = quality };
 
+    private Item BackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality }; 
 }
