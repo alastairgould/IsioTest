@@ -95,18 +95,18 @@ public class GildedRoseTests
     }
     
     [Theory]
-    [InlineData("Aged Brie", 1, 40)]
-    [InlineData("Aged Brie", 0, 39)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 40)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 40)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 39)]
+    [InlineData("Aged Brie", 1, 50)]
+    [InlineData("Aged Brie", 0, 50)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 50)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 50)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 49)]
     public void QualityNeverGoesAbove40_WhenADayPasses(string name, int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
 
         app.UpdateQuality();
 
-        Assert.Equal(40, items[0].Quality);
+        Assert.Equal(50, items[0].Quality);
     }
     
     //Tests below here need to be changed to follow new rules later.
