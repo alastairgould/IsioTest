@@ -82,10 +82,22 @@ public class GildedRoseTests
         Assert.Equal(12, items[0].Quality);
     }
     
+    [Fact]
+    public void SulfurasSellByDateNeverChanges_WhenADayPasses()
+    {
+        var (app, items) = CreateGildedRose([Sulfuras()]);
+        
+        app.UpdateQuality();
+        
+        Assert.Equal(5, items[0].SellIn);
+    } 
+    
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
    
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
 
     private Item AgedBrie(int sellIn = 1, int quality = 10) => new() { Name = "Aged Brie", SellIn = sellIn, Quality = quality };
+
+    private Item Sulfuras(int sellIn = 5, int quality = 5) => new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = sellIn, Quality = quality };
 
 }
