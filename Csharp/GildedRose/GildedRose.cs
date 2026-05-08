@@ -45,12 +45,12 @@ public class GildedRose
     {
         DecrementQuality(item);
 
-        if (item.SellIn <= 0) 
+        if (item.SellIn <= 0)
         {
             DecrementQuality(item);
         }
-        
-        DecreaseItemSellIn(item);
+
+        item.SellIn -= 1;
     }
 
     private static void UpdateAgingBrie(Item item)
@@ -61,12 +61,7 @@ public class GildedRose
         {
             IncreaseItemQuality(item);
         }
-        
-        DecreaseItemSellIn(item);
-    }
 
-    private static void DecreaseItemSellIn(Item item)
-    {
         item.SellIn -= 1;
     }
 
@@ -86,15 +81,10 @@ public class GildedRose
 
         if (item.SellIn <= 0)
         {
-            SetItemToZeroQuality(item);
-        }        
+            item.Quality = 0;
+        }
 
-        DecreaseItemSellIn(item);
-    }
-
-    private static void SetItemToZeroQuality(Item item)
-    {
-        item.Quality = 0;
+        item.SellIn -= 1;
     }
 
     private static void IncreaseItemQuality(Item item)
