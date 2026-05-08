@@ -6,11 +6,12 @@ internal interface IUpdateItem
 
     void Update(Item item);
 
-    static void IncreaseQuality(Item item)
+    static void IncreaseQuality(Item item, int amount = 1)
     {
-        if (item.Quality < MaxQuality)
+        item.Quality += amount;
+        if (item.Quality > MaxQuality)
         {
-            item.Quality += 1;
+            item.Quality = MaxQuality;
         }
     }
 

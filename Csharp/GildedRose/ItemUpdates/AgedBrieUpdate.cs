@@ -6,13 +6,8 @@ internal class AgedBrieUpdate : IUpdateItem
 {
     public void Update(Item item)
     {
-        IncreaseQuality(item);
-
-        if (item.SellIn <= 0)
-        {
-            IncreaseQuality(item);
-        }
-
+        var increaseRate = item.SellIn <= 0 ? 2 : 1;
+        IncreaseQuality(item, increaseRate);
         item.SellIn -= 1;
     }
 }

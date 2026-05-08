@@ -6,17 +6,17 @@ internal class BackstagePassesUpdate : IUpdateItem
 {
     public void Update(Item item)
     {
-        IncreaseQuality(item);
-
-        if (item.SellIn <= 7)
-        {
-            IncreaseQuality(item);
-            IncreaseQuality(item);
-        }
-
         if (item.SellIn <= 2)
         {
-            IncreaseQuality(item);
+            IncreaseQuality(item, 4);
+        }
+        else if (item.SellIn <= 7)
+        {
+            IncreaseQuality(item, 3);
+        }
+        else
+        {
+            IncreaseQuality(item, 1);
         }
 
         if (item.SellIn <= 0)
