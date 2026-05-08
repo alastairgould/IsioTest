@@ -19,7 +19,7 @@ public class GildedRose
 
     public GildedRose(IList<Item> items)
     {
-        this.Items = items;
+        Items = items;
     }
 
     public void UpdateQuality()
