@@ -89,7 +89,7 @@ public class GildedRose
 
     private static void IncreaseItemQuality(Item item)
     {
-        if (item.Quality < 50)
+        if (item.Quality < 40)
         {
             item.Quality += 1;
         }

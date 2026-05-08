@@ -105,18 +105,18 @@ public class GildedRoseTests
     }
     
     [Theory]
-    [InlineData("Aged Brie", 1, 50)]
-    [InlineData("Aged Brie", 0, 50)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 50)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 50)]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 49)]
-    public void QualityNeverGoesAbove50_WhenADayPasses(string name, int sellIn, int quality)
+    [InlineData("Aged Brie", 1, 40)]
+    [InlineData("Aged Brie", 0, 39)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7, 40)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 40)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 2, 39)]
+    public void QualityNeverGoesAbove40_WhenADayPasses(string name, int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = sellIn, Quality = quality }]);
 
         app.UpdateQuality();
 
-        Assert.Equal(50, items[0].Quality);
+        Assert.Equal(40, items[0].Quality);
     }
     
     //Tests below here need to be changed to follow new rules later.
@@ -162,13 +162,13 @@ public class GildedRoseTests
     }
     
     [Fact]
-    public void BackstagePassQualityDoesNotExceedCap_WhenWithin6Days()
+    public void BackstagePassQualityDoesNotExceed40Cap_WhenWithin6Days()
     {
-        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 49)]);
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 39)]);
 
         app.UpdateQuality();
 
-        Assert.Equal(50, items[0].Quality);
+        Assert.Equal(40, items[0].Quality);
     }
 
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
