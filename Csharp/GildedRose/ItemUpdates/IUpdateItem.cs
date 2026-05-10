@@ -1,6 +1,6 @@
 namespace GildedRoseKata;
 
-internal interface IUpdateItem
+public interface IUpdateItem
 {
     const int MaxQuality = 40;
 
