@@ -117,7 +117,7 @@ complexity. But it would not be hard to add.
 
 The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the "Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
 
-### Stuff i did not have enough time for
+### Stuff I did not have time enough for
 
 I was going to make the modifier system generic, so that it works for more than just conjured.
 I.e You could register an additional modifier with a name, add it would automatically add the decorator to the item updater if the item name had a specified prefix.
