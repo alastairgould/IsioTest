@@ -82,7 +82,7 @@ We are looking for candidates to successfully demonstrate the following criteria
 ## Credits
 The test source code is forked and adapted from the public original, which can be found here: https://github.com/emilybache/GildedRose-Refactoring-Kata 
 
-## Candidates Notes 
+## Candidate Notes 
 
 ### Assumptions
 
