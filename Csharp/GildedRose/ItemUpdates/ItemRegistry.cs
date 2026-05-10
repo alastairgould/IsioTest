@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using GildedRoseKata.ItemUpdates.Modifiers;
 
 namespace GildedRoseKata.ItemUpdates;
 
@@ -6,17 +8,36 @@ public class ItemRegistry
 {
     private static readonly IUpdateItem DefaultUpdater = new StandardItemUpdate();
 
-    private static readonly Dictionary<string, IUpdateItem> ItemUpdaters = new();
+    private static readonly Dictionary<string, IUpdateItem> Cache = new();
+    
+    private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new();
 
     public ItemRegistry()
     {
-        Register("Aged Brie", new AgedBrieUpdate());
-        Register("Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdate());
-        Register("Sulfuras, Hand of Ragnaros", new SulfurasUpdate());
-        Register("Conjured", new StandardItemUpdate(decayMultiplier: 2));
+        RegisterItem("Aged Brie", new AgedBrieUpdate());
+        RegisterItem("Backstage passes", new BackstagePassesUpdate());
+        RegisterItem("Sulfuras, Hand of Ragnaros", new SulfurasUpdate());
     }
 
-    public IUpdateItem FindUpdater(Item item) => ItemUpdaters.GetValueOrDefault(item.Name, DefaultUpdater);
+    public IUpdateItem FindUpdater(Item item)
+    {
+        if (Cache.TryGetValue(item.Name, out var cachedUpdater))
+        {
+            return cachedUpdater;
+        }
+        
+        var isConjured = item.Name.StartsWith("Conjured");
+
+        var name = isConjured ? item.Name.Substring("Conjured".Length) : item.Name;
+        
+        var bestMatchKey = ItemUpdaters.Keys
+            .FirstOrDefault(k => name.StartsWith(k));
+
+        var strategy = bestMatchKey != null ? ItemUpdaters[bestMatchKey] : DefaultUpdater;
+        var updater = isConjured ? new ConjouredModifier(strategy) : strategy;
+        return Cache[item.Name] = updater; 
+    } 
     
-    private void Register(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
+    private void RegisterItem(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
+    
 }
