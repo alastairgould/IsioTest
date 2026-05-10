@@ -358,6 +358,43 @@ public class GildedRoseTests
         Assert.Equal(5, items[0].SellIn);
     }
 
+    [Theory]
+    [InlineData("aged brie")]
+    [InlineData("AGED BRIE")]
+    [InlineData("Aged BRIE")]
+    public void AgedBrieMatching_IsCaseInsensitive(string name)
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(11, items[0].Quality);
+    }
+
+    [Theory]
+    [InlineData("backstage passes to a TAFKAL80ETC concert")]
+    [InlineData("BACKSTAGE PASSES to a TAFKAL80ETC concert")]
+    public void BackstagePrefixMatching_IsCaseInsensitive(string name)
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(13, items[0].Quality);
+    }
+
+    [Theory]
+    [InlineData("conjured ice cream")]
+    [InlineData("CONJURED Ice Cream")]
+    public void ConjuredPrefix_IsCaseInsensitive(string name)
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = name, SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(4, items[0].Quality);
+    }
+
     [Fact]
     public void UnknownItem_DegradesAtStandardRate()
     {

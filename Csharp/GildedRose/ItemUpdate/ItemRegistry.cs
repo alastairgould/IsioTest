@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GildedRoseKata.ItemUpdate.ItemUpdaters;
@@ -9,9 +10,9 @@ public class ItemRegistry
 {
     private static readonly IUpdateItem DefaultUpdater = new StandardItemUpdate();
 
-    private readonly Dictionary<string, IUpdateItem> Cache = new();
-    
-    private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new();
+    private readonly Dictionary<string, IUpdateItem> Cache = new(StringComparer.OrdinalIgnoreCase);
+
+    private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new(StringComparer.OrdinalIgnoreCase);
 
     public ItemRegistry()
     {
@@ -28,19 +29,20 @@ public class ItemRegistry
         {
             return cachedUpdater;
         }
-        
-        var isConjured = item.Name.StartsWith("Conjured ");
+
+        var isConjured = item.Name.StartsWith("Conjured ", StringComparison.OrdinalIgnoreCase);
 
         var name = isConjured ? item.Name.Substring("Conjured ".Length) : item.Name;
 
         var bestMatchKey = ItemUpdaters.Keys
             .OrderByDescending(k => k.Length)
-            .FirstOrDefault(k => name == k || name.StartsWith(k + " "));
+            .FirstOrDefault(k => name.Equals(k, StringComparison.OrdinalIgnoreCase)
+                              || name.StartsWith(k + " ", StringComparison.OrdinalIgnoreCase));
 
         var strategy = bestMatchKey != null ? ItemUpdaters[bestMatchKey] : DefaultUpdater;
         var updater = isConjured ? new ConjuredModifier(strategy) : strategy;
-        return Cache[item.Name] = updater; 
-    } 
-    
+        return Cache[item.Name] = updater;
+    }
+
     private void RegisterItem(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
 }
