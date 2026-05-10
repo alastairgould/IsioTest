@@ -312,6 +312,16 @@ public class GildedRoseTests
     }
 
     [Fact]
+    public void NameStartingWithRegisteredKeyButIsNotAnExactMatch_IsTreatedAsStandardItem()
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = "Aged Briecake", SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(9, items[0].Quality);
+    }
+
+    [Fact]
     public void NameStartingWithConjuredButNoSpace_IsTreatedAsStandardItem()
     {
         var (app, items) = CreateGildedRose([new Item { Name = "ConjuredFoo", SellIn = 5, Quality = 10 }]);
