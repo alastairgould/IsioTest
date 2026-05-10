@@ -4,13 +4,11 @@ namespace GildedRoseKata.ItemUpdates.Modifiers;
 
 internal class ConjuredModifier(IUpdateItem inner) : IUpdateItem
 {
-    private IUpdateItem _inner = inner;
-
     public void Update(Item item)
     {
         var qualityBefore = item.Quality;
 
-        _inner.Update(item);
+        inner.Update(item);
 
         var change = qualityBefore - item.Quality;
 
