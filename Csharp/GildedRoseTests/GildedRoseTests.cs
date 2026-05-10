@@ -129,10 +129,12 @@ public class GildedRoseTests
         Assert.Equal(6, items[0].Quality);
     }
     
-    [Fact]
-    public void BackstagePassQualityIncreasesBy3_WhenThereAre7DaysOrLess()
+    [Theory]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert")]
+    [InlineData("Backstage passes to a ACDC concert")]
+    public void BackstagePassQualityIncreasesBy3_WhenThereAre7DaysOrLess(string name)
     {
-        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 7)]);
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 7, name: name)]);
         
         app.UpdateQuality();
         
@@ -253,7 +255,7 @@ public class GildedRoseTests
 
     private Item Sulfuras(int sellIn = 5, int quality = 5) => new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = sellIn, Quality = quality };
 
-    private Item BackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality };
+    private Item BackstagePass(int sellIn = 5, int quality = 5, string name = "Backstage passes to a TAFKAL80ETC concert") => new() { Name = name, SellIn = sellIn, Quality = quality };
 
     private Item Conjured(int sellIn = 5, int quality = 10, string name = "Conjured Item") => new() { Name = name, SellIn = sellIn, Quality = quality };
 }
