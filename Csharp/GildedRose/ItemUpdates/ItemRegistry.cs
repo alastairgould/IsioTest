@@ -8,7 +8,7 @@ public class ItemRegistry
 {
     private static readonly IUpdateItem DefaultUpdater = new StandardItemUpdate();
 
-    private static readonly Dictionary<string, IUpdateItem> Cache = new();
+    private readonly Dictionary<string, IUpdateItem> Cache = new();
     
     private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new();
 
@@ -39,5 +39,4 @@ public class ItemRegistry
     } 
     
     private void RegisterItem(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
-    
 }
