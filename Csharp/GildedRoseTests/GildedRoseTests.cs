@@ -22,13 +22,14 @@ public class GildedRoseTests
     }
   
     [Theory]
-    [InlineData("foo")]
-    public void QualityDegradesByOne_WhenNotPastSellByDate(string name)
+    [InlineData("foo", 2)]
+    [InlineData("foo", 1)]
+    public void QualityDegradesByOne_WhenNotPastSellByDate(string name, int sellIn)
     {
-        var (app, items) = CreateGildedRose([GenericItem(name, quality: 10)]);
-        
+        var (app, items) = CreateGildedRose([GenericItem(name, sellIn: sellIn, quality: 10)]);
+
         app.UpdateQuality();
-        
+
         Assert.Equal(9, items[0].Quality);
     }
     
@@ -55,13 +56,15 @@ public class GildedRoseTests
         Assert.Equal(0, items[0].Quality);
     }
     
-    [Fact]
-    public void AgedBrieIncreasesByOne_WhenWithinSellByDate()
+    [Theory]
+    [InlineData(2)]
+    [InlineData(1)]
+    public void AgedBrieIncreasesByOne_WhenWithinSellByDate(int sellIn)
     {
-        var (app, items) = CreateGildedRose([AgedBrie(sellIn: 2)]);
-        
+        var (app, items) = CreateGildedRose([AgedBrie(sellIn: sellIn)]);
+
         app.UpdateQuality();
-        
+
         Assert.Equal(11, items[0].Quality);
     }
     
@@ -270,10 +273,12 @@ public class GildedRoseTests
         Assert.Equal(0, items[0].Quality);
     }
 
-    [Fact]
-    public void IceCreamQualityDegradesByThree_WhenNotPastSellByDate()
+    [Theory]
+    [InlineData(5)]
+    [InlineData(1)]
+    public void IceCreamQualityDegradesByThree_WhenNotPastSellByDate(int sellIn)
     {
-        var (app, items) = CreateGildedRose([IceCream(sellIn: 5, quality: 10)]);
+        var (app, items) = CreateGildedRose([IceCream(sellIn: sellIn, quality: 10)]);
 
         app.UpdateQuality();
 
