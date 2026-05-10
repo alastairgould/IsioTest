@@ -5,7 +5,7 @@ namespace GildedRoseKata;
 
 public class GildedRose
 {
-    private static readonly ItemRegistry ItemRegistry = new();
+    private readonly ItemRegistry ItemRegistry = new();
 
     private IList<Item> Items;
 
