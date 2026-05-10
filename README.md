@@ -115,7 +115,13 @@ Using "Conjured" name by itself is just a standard item without the conjured mod
 to work it needs to be combined with an existing item. This to avoid some additional code 
 complexity. But it would not be hard to add.
 
-The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the "Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
+The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the 
+"Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
+
+- Ice Cream + Backstage VIP area item updaters exist only to demonstrate how the
+system works with new items. They could have implemented by parameterizing an existing 
+ItemUpdater which have been simpler  
+
 
 ### Stuff I did not have time enough for
 
