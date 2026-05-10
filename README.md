@@ -81,3 +81,45 @@ We are looking for candidates to successfully demonstrate the following criteria
 
 ## Credits
 The test source code is forked and adapted from the public original, which can be found here: https://github.com/emilybache/GildedRose-Refactoring-Kata 
+
+## Candidates Notes 
+
+### Assumptions
+
+- Conjured is a modifier that can work on all items, if they decrease in quality.
+- Backstage Passes work generically. Not only on passes for a specific concert
+
+## Approach 
+
+- First I added tests to confirm existing behaviour.
+- I noticed the readme specs did not match existing behaviour doing this. 40 vs 50 quality cap, and the backstage thresholds were different.
+- Once tests were in place, I then refactored the code to make the changes easy.
+- Once the code was in a place where changes could be made easily, I then modified the code to 
+match the specs, and add Conjured.
+- I then added additional features like Ice Cream item to show how conjured works with all items 
+automatically due to decorator + modifier system.
+- I also added Backstage to vip area item, which forced me to define behaviour when items names are similar
+
+### Trade offs 
+
+Inside the ItemRegistry.FindUpdater method I've implemented some custom lookup logic and cache.
+Originally this was just dictionary lookup(O(1)). However this could not support the
+modifier(Conjured) system or handling backstage passes generically. This means the first lookup is
+not as performant but the 2nd lookup will be O(1).
+
+I've implemented conjured as a decorator. This adds some complexity, but it does mean this
+decorator can automatically work with all item updaters that decrease quality. For example 
+I've added the ice cream item which degrades faster, and Conjured automatically works with that 
+item without any changes.
+
+Using "Conjured" by itself is just a standard item without the conjured modifier. For the modifier 
+to work it needs to be combined with an existing item. This to avoid some additional code 
+complexity. But it would not be hard to add.
+
+The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the "Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
+
+### Stuff i did not have enough time for
+
+I was going to make the modifier system generic, so that it works for more than just conjured.
+I.e You could register an additional modifier, add it would automatically add the decorator to the item updater if the item name had a specified prefix.
+
