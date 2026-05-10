@@ -1,6 +1,6 @@
-using static GildedRoseKata.IUpdateItem;
+using static GildedRoseKata.ItemUpdate.IUpdateItem;
 
-namespace GildedRoseKata.ItemUpdates.ItemUpdaters;
+namespace GildedRoseKata.ItemUpdate.ItemUpdaters;
 
 internal class IceCreamUpdate : IUpdateItem
 {

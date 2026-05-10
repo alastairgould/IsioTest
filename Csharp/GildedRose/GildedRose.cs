@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GildedRoseKata.ItemUpdates;
+using GildedRoseKata.ItemUpdate;
 
 namespace GildedRoseKata;
 

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using GildedRoseKata.ItemUpdates.ItemUpdaters;
-using GildedRoseKata.ItemUpdates.Modifiers;
+using GildedRoseKata.ItemUpdate.ItemUpdaters;
+using GildedRoseKata.ItemUpdate.Modifiers;
 
-namespace GildedRoseKata.ItemUpdates;
+namespace GildedRoseKata.ItemUpdate;
 
 public class ItemRegistry
 {

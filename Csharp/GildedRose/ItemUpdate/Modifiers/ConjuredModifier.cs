@@ -1,6 +1,6 @@
-using static GildedRoseKata.IUpdateItem;
+using static GildedRoseKata.ItemUpdate.IUpdateItem;
 
-namespace GildedRoseKata.ItemUpdates.Modifiers;
+namespace GildedRoseKata.ItemUpdate.Modifiers;
 
 internal class ConjuredModifier(IUpdateItem inner) : IUpdateItem
 {

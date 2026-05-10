@@ -1,4 +1,4 @@
-namespace GildedRoseKata;
+namespace GildedRoseKata.ItemUpdate;
 
 public interface IUpdateItem
 {

@@ -1,22 +1,22 @@
-using static GildedRoseKata.IUpdateItem;
+using static GildedRoseKata.ItemUpdate.IUpdateItem;
 
-namespace GildedRoseKata.ItemUpdates.ItemUpdaters;
+namespace GildedRoseKata.ItemUpdate.ItemUpdaters;
 
-internal class VipBackstagePassesUpdate : IUpdateItem
+internal class BackstagePassesUpdate : IUpdateItem
 {
     public void Update(Item item)
     {
         if (item.SellIn <= 2)
         {
-            IncreaseQuality(item, 8);
+            IncreaseQuality(item, 4);
         }
         else if (item.SellIn <= 7)
         {
-            IncreaseQuality(item, 6);
+            IncreaseQuality(item, 3);
         }
         else
         {
-            IncreaseQuality(item, 2);
+            IncreaseQuality(item);
         }
 
         if (item.SellIn <= 0)
