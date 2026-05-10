@@ -130,24 +130,28 @@ public class GildedRoseTests
     }
     
     [Theory]
-    [InlineData("Backstage passes to a TAFKAL80ETC concert")]
-    [InlineData("Backstage passes to a ACDC concert")]
-    public void BackstagePassQualityIncreasesBy3_WhenThereAre7DaysOrLess(string name)
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 7)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 6)]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert", 3)]
+    [InlineData("Backstage passes to a ACDC concert", 7)]
+    public void BackstagePassQualityIncreasesBy3_WhenThereAre7DaysOrLess(string name, int sellIn)
     {
-        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: 7, name: name)]);
-        
+        var (app, items) = CreateGildedRose([BackstagePass(quality: 5, sellIn: sellIn, name: name)]);
+
         app.UpdateQuality();
-        
+
         Assert.Equal(8, items[0].Quality);
     }
-    
-    [Fact]
-    public void BackstagePassQualityIncreasesBy4_WhenThereAre2DaysOrLess()
+
+    [Theory]
+    [InlineData(2)]
+    [InlineData(1)]
+    public void BackstagePassQualityIncreasesBy4_WhenThereAre2DaysOrLess(int sellIn)
     {
-        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 4)]);
-        
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: sellIn, quality: 4)]);
+
         app.UpdateQuality();
-        
+
         Assert.Equal(8, items[0].Quality);
     }
     
@@ -174,20 +178,25 @@ public class GildedRoseTests
         Assert.Equal(7, items[0].Quality);
     }
 
-    [Fact]
-    public void VipBackstagePassQualityIncreasesBy6_WhenThereAre7DaysOrLess()
+    [Theory]
+    [InlineData(7)]
+    [InlineData(6)]
+    [InlineData(3)]
+    public void VipBackstagePassQualityIncreasesBy6_WhenThereAre7DaysOrLess(int sellIn)
     {
-        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 7, quality: 5)]);
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: sellIn, quality: 5)]);
 
         app.UpdateQuality();
 
         Assert.Equal(11, items[0].Quality);
     }
 
-    [Fact]
-    public void VipBackstagePassQualityIncreasesBy8_WhenThereAre2DaysOrLess()
+    [Theory]
+    [InlineData(2)]
+    [InlineData(1)]
+    public void VipBackstagePassQualityIncreasesBy8_WhenThereAre2DaysOrLess(int sellIn)
     {
-        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 2, quality: 5)]);
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: sellIn, quality: 5)]);
 
         app.UpdateQuality();
 
