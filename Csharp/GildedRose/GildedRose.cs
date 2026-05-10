@@ -3,20 +3,13 @@ using GildedRoseKata.ItemUpdate;
 
 namespace GildedRoseKata;
 
-public class GildedRose
+public class GildedRose(IList<Item> items)
 {
     private readonly ItemRegistry ItemRegistry = new();
 
-    private IList<Item> Items;
-
-    public GildedRose(IList<Item> items)
-    {
-        Items = items;
-    }
-
     public void UpdateQuality()
     {
-        foreach (var item in Items)
+        foreach (var item in items)
         {
             var update = ItemRegistry.FindUpdater(item);
             update.Update(item);
