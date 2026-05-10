@@ -1,4 +1,4 @@
-namespace GildedRoseKata.ItemUpdates;
+namespace GildedRoseKata.ItemUpdates.ItemUpdaters;
 
 internal class SulfurasUpdate : IUpdateItem
 {

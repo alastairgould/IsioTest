@@ -1,6 +1,6 @@
 using static GildedRoseKata.IUpdateItem;
 
-namespace GildedRoseKata.ItemUpdates;
+namespace GildedRoseKata.ItemUpdates.ItemUpdaters;
 
 internal class StandardItemUpdate : IUpdateItem
 {
