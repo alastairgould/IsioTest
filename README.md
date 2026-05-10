@@ -102,20 +102,20 @@ automatically due to decorator + modifier system.
 
 ### Trade offs 
 
-Inside the ItemRegistry.FindUpdater method I've implemented some custom lookup logic and cache.
+- Inside the ItemRegistry.FindUpdater method I've implemented some custom lookup logic and cache.
 Originally this was just dictionary lookup(O(1)). However this could not support the
 modifier(Conjured) system or handling backstage passes generically. This means the first lookup is
 not as performant but the 2nd lookup will be O(1).
 
-I've implemented conjured as a decorator. This adds some complexity, but it does mean this
+- I've implemented conjured as a decorator. This adds some complexity, but it does mean this
 decorator can automatically work with all item updaters that decrease quality. For example 
 I've added the ice cream item which degrades in a different way to standard items, and Conjured automatically works with that item without any changes.
 
-Using "Conjured" name by itself is just a standard item without the conjured modifier. For the modifier 
+- Using "Conjured" name by itself is just a standard item without the conjured modifier. For the modifier 
 to work it needs to be combined with an existing item. This to avoid some additional code 
 complexity. But it would not be hard to add.
 
-The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the 
+- The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the 
 "Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
 
 - Ice Cream + Backstage VIP area item updaters exist only to demonstrate how the
