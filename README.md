@@ -124,6 +124,6 @@ system works with new items. They could have implemented by parameterizing an ex
 
 ### Stuff I did not have time enough for
 
-- I was going to make the modifier system generic, so that it works with more than just conjured.
+- I was going to make the modifier system generic, so that it works with more than just "Conjured".
 I.e You could register an additional modifier with a name, add it would automatically add the decorator to the item updater if the item name had a specified prefix.
 
