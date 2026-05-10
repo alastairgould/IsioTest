@@ -34,7 +34,7 @@ public class ItemRegistry
             .FirstOrDefault(k => name.StartsWith(k));
 
         var strategy = bestMatchKey != null ? ItemUpdaters[bestMatchKey] : DefaultUpdater;
-        var updater = isConjured ? new ConjouredModifier(strategy) : strategy;
+        var updater = isConjured ? new ConjuredModifier(strategy) : strategy;
         return Cache[item.Name] = updater; 
     } 
     

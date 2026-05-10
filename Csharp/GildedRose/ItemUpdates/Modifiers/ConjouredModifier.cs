@@ -2,7 +2,7 @@ using static GildedRoseKata.IUpdateItem;
 
 namespace GildedRoseKata.ItemUpdates.Modifiers;
 
-internal class ConjouredModifier(IUpdateItem inner) : IUpdateItem
+internal class ConjuredModifier(IUpdateItem inner) : IUpdateItem
 {
     private IUpdateItem _inner = inner;
 
