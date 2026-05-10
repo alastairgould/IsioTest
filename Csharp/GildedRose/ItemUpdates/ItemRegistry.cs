@@ -4,7 +4,7 @@ namespace GildedRoseKata.ItemUpdates;
 
 public class ItemRegistry
 {
-    private static readonly IUpdateItem Default = new StandardItemUpdate();
+    private static readonly IUpdateItem DefaultUpdater = new StandardItemUpdate();
 
     private static readonly Dictionary<string, IUpdateItem> ItemUpdaters = new();
 
@@ -16,7 +16,7 @@ public class ItemRegistry
         Register("Conjured", new StandardItemUpdate(decayMultiplier: 2));
     }
 
-    public IUpdateItem FindUpdater(Item item) => ItemUpdaters.GetValueOrDefault(item.Name, Default);
+    public IUpdateItem FindUpdater(Item item) => ItemUpdaters.GetValueOrDefault(item.Name, DefaultUpdater);
     
     private void Register(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
 }
