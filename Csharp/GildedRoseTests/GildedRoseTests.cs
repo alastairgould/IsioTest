@@ -43,7 +43,7 @@ public class GildedRoseTests
     
     [Theory]
     [InlineData(2, 0)]
-    [InlineData(0, 1)] //Checking that there's a guard for double degradation rule
+    [InlineData(0, 1)]  //Checking that there's a guard for double degradation rule
     public void QualityNeverGoesBelowZero_WhenADayPasses(int sellIn, int quality)
     {
         var (app, items) = CreateGildedRose([GenericItem(sellIn: sellIn, quality: quality)]);
@@ -149,10 +149,13 @@ public class GildedRoseTests
         Assert.Equal(8, items[0].Quality);
     }
     
-    [Fact]
-    public void BackstagePassQualityDoesNotExceed40Cap_WhenWithin6Days()
+    [Theory]
+    [InlineData(8)]
+    [InlineData(7)]
+    [InlineData(2)]
+    public void BackstagePassQualityDoesNotExceed40Cap_WhenWithinThreshold(int sellIn)
     {
-        var (app, items) = CreateGildedRose([BackstagePass(sellIn: 2, quality: 39)]);
+        var (app, items) = CreateGildedRose([BackstagePass(sellIn: sellIn, quality: 40)]);
 
         app.UpdateQuality();
 

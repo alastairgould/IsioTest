@@ -9,6 +9,7 @@ internal interface IUpdateItem
     static void IncreaseQuality(Item item, int amount = 1)
     {
         item.Quality += amount;
+        
         if (item.Quality > MaxQuality)
         {
             item.Quality = MaxQuality;
@@ -18,6 +19,7 @@ internal interface IUpdateItem
     static void DecreaseQuality(Item item, int amount)
     {
         item.Quality -= amount;
+        
         if (item.Quality < 0)
         {
             item.Quality = 0;
