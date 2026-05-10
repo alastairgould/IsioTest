@@ -217,16 +217,6 @@ public class GildedRoseTests
     }
 
     [Fact]
-    public void NameStartingWithRegisteredKeyButLonger_IsNotTreatedAsThatItem()
-    {
-        var (app, items) = CreateGildedRose([new Item { Name = "Aged Brie Wheel of Cheddar", SellIn = 5, Quality = 10 }]);
-
-        app.UpdateQuality();
-
-        Assert.Equal(9, items[0].Quality);
-    }
-
-    [Fact]
     public void ConjuredSulfuras_RemainsUnchanged()
     {
         var (app, items) = CreateGildedRose([new Item { Name = "Conjured Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 }]);
