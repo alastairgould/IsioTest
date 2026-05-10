@@ -165,6 +165,59 @@ public class GildedRoseTests
     }
 
     [Fact]
+    public void VipBackstagePassQualityIncreasesBy2_WhenThereAre8DaysOrMore()
+    {
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 8, quality: 5)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(7, items[0].Quality);
+    }
+
+    [Fact]
+    public void VipBackstagePassQualityIncreasesBy6_WhenThereAre7DaysOrLess()
+    {
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 7, quality: 5)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(11, items[0].Quality);
+    }
+
+    [Fact]
+    public void VipBackstagePassQualityIncreasesBy8_WhenThereAre2DaysOrLess()
+    {
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 2, quality: 5)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(13, items[0].Quality);
+    }
+
+    [Fact]
+    public void VipBackstagePassQualityDropsToZero_WhenPastConcertDate()
+    {
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: 0, quality: 20)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(0, items[0].Quality);
+    }
+
+    [Theory]
+    [InlineData(8)]
+    [InlineData(7)]
+    [InlineData(2)]
+    public void VipBackstagePassQualityDoesNotExceed40Cap_WhenWithinThreshold(int sellIn)
+    {
+        var (app, items) = CreateGildedRose([VipBackstagePass(sellIn: sellIn, quality: 40)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(40, items[0].Quality);
+    }
+
+    [Fact]
     public void ConjuredQualityDegradesByTwo_WhenNotPastSellByDate()
     {
         var (app, items) = CreateGildedRose([Conjured(sellIn: 5, quality: 10)]);
@@ -246,6 +299,8 @@ public class GildedRoseTests
     private Item Sulfuras(int sellIn = 5, int quality = 5) => new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = sellIn, Quality = quality };
 
     private Item BackstagePass(int sellIn = 5, int quality = 5, string name = "Backstage passes to a TAFKAL80ETC concert") => new() { Name = name, SellIn = sellIn, Quality = quality };
+
+    private Item VipBackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to VIP Area", SellIn = sellIn, Quality = quality };
 
     private Item Conjured(int sellIn = 5, int quality = 10, string name = "Conjured Item") => new() { Name = name, SellIn = sellIn, Quality = quality };
 }

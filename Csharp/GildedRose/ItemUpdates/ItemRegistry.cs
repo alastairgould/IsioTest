@@ -16,6 +16,7 @@ public class ItemRegistry
     {
         RegisterItem("Aged Brie", new AgedBrieUpdate());
         RegisterItem("Backstage passes", new BackstagePassesUpdate());
+        RegisterItem("Backstage passes to VIP Area", new VipBackstagePassesUpdate());
         RegisterItem("Sulfuras, Hand of Ragnaros", new SulfurasUpdate());
     }
 
@@ -31,6 +32,7 @@ public class ItemRegistry
         var name = isConjured ? item.Name.Substring("Conjured".Length).Trim() : item.Name.Trim();
 
         var bestMatchKey = ItemUpdaters.Keys
+            .OrderByDescending(k => k.Length)
             .FirstOrDefault(k => name.StartsWith(k));
 
         var strategy = bestMatchKey != null ? ItemUpdaters[bestMatchKey] : DefaultUpdater;
