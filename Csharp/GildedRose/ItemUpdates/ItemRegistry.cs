@@ -28,7 +28,7 @@ public class ItemRegistry
         
         var isConjured = item.Name.StartsWith("Conjured ");
 
-        var name = isConjured ? item.Name.Substring("Conjured ".Length).Trim() : item.Name.Trim();
+        var name = isConjured ? item.Name.Substring("Conjured".Length).Trim() : item.Name.Trim();
 
         var bestMatchKey = ItemUpdaters.Keys
             .FirstOrDefault(k => name.StartsWith(k));
