@@ -88,7 +88,7 @@ The test source code is forked and adapted from the public original, which can b
 
 - Conjured is a modifier that can work on all items, if they decrease in quality.
 - Backstage Passes work generically. Not only on passes for a specific concert
-
+- I have kept the original case handling for strings
 ## Approach 
 
 - First I added tests to confirm existing behavior.
