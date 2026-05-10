@@ -30,9 +30,9 @@ public class ItemRegistry
             return cachedUpdater;
         }
 
-        var isConjured = item.Name.StartsWith("Conjured ", StringComparison.OrdinalIgnoreCase);
-
-        var name = isConjured ? item.Name.Substring("Conjured ".Length) : item.Name;
+        const string conjuredPrefix = "Conjured ";
+        var isConjured = item.Name.StartsWith(conjuredPrefix , StringComparison.OrdinalIgnoreCase);
+        var name = isConjured ? item.Name.Substring(conjuredPrefix.Length) : item.Name;
 
         var bestMatchKey = ItemUpdaters.Keys
             .OrderByDescending(k => k.Length)
