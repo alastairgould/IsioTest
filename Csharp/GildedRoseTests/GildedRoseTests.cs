@@ -181,6 +181,16 @@ public class GildedRoseTests
 
         Assert.Equal(6, items[0].Quality);
     }
+    
+    [Fact]
+    public void ConjuredIsIgnored_WhenQualityIsChangedPositively()
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: 5, quality: 10, name: "Conjured Aged Brie")]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(11, items[0].Quality);
+    }
 
     [Theory]
     [InlineData(5, 1)]
@@ -204,5 +214,5 @@ public class GildedRoseTests
 
     private Item BackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality };
 
-    private Item Conjured(int sellIn = 5, int quality = 10) => new() { Name = "Conjured", SellIn = sellIn, Quality = quality };
+    private Item Conjured(int sellIn = 5, int quality = 10, string name = "Conjured Item") => new() { Name = name, SellIn = sellIn, Quality = quality };
 }

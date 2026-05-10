@@ -14,6 +14,9 @@ internal class ConjouredModifier(IUpdateItem inner) : IUpdateItem
 
         var change = qualityBefore - item.Quality;
 
-        DecreaseQuality(item, change);
+        if (change > 0)
+        {
+            DecreaseQuality(item, change);
+        }
     }
 }
