@@ -94,7 +94,7 @@ public class GildedRoseTests
     } 
        
     [Fact]
-    public void BackstagePassQualityDropsToZero_WhenSellInDropsBelowZero()
+    public void BackstagePassQualityDropsToZero_WhenPastConcertDate()
     {
         var (app, items) = CreateGildedRose([BackstagePass(sellIn: 0)]);
         
@@ -202,6 +202,47 @@ public class GildedRoseTests
         app.UpdateQuality();
 
         Assert.Equal(0, items[0].Quality);
+    }
+
+    [Fact]
+    public void NameStartingWithConjuredButNoSpace_IsTreatedAsStandardItem()
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = "ConjuredFoo", SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(9, items[0].Quality);
+    }
+
+    [Fact]
+    public void NameStartingWithRegisteredKeyButLonger_IsNotTreatedAsThatItem()
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = "Aged Brie Wheel of Cheddar", SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(9, items[0].Quality);
+    }
+
+    [Fact]
+    public void ConjuredSulfuras_RemainsUnchanged()
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = "Conjured Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(80, items[0].Quality);
+        Assert.Equal(5, items[0].SellIn);
+    }
+
+    [Fact]
+    public void UnknownItem_DegradesAtStandardRate()
+    {
+        var (app, items) = CreateGildedRose([new Item { Name = "+5 Dexterity Vest", SellIn = 5, Quality = 10 }]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(9, items[0].Quality);
     }
 
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
