@@ -10,6 +10,8 @@ public class GildedRoseTests
     [InlineData("foo")]
     [InlineData("Aged Brie")]
     [InlineData("Backstage passes to a TAFKAL80ETC concert")]
+    [InlineData("Backstage passes to VIP Area")]
+    [InlineData("Ice Cream")]
     public void SellInDecreasesByOne_WhenADayPasses(string name)
     {
         var (app, items) = CreateGildedRose([GenericItem(name, sellIn: 2)]);
