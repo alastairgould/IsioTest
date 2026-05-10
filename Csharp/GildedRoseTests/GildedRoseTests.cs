@@ -101,7 +101,7 @@ public class GildedRoseTests
         app.UpdateQuality();
         
         Assert.Equal(0, items[0].Quality);
-        Assert.Equal(-1, items[0].SellIn);;
+        Assert.Equal(-1, items[0].SellIn);
     }
     
     [Theory]
