@@ -260,6 +260,58 @@ public class GildedRoseTests
     }
 
     [Fact]
+    public void IceCreamQualityDegradesByThree_WhenNotPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([IceCream(sellIn: 5, quality: 10)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(7, items[0].Quality);
+    }
+
+    [Fact]
+    public void IceCreamQualityDegradesBySix_WhenPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([IceCream(sellIn: 0, quality: 10)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(4, items[0].Quality);
+    }
+
+    [Theory]
+    [InlineData(5, 2)]
+    [InlineData(0, 5)]
+    public void IceCreamQualityNeverGoesBelowZero_WhenADayPasses(int sellIn, int quality)
+    {
+        var (app, items) = CreateGildedRose([IceCream(sellIn: sellIn, quality: quality)]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(0, items[0].Quality);
+    }
+
+    [Fact]
+    public void ConjuredIceCreamQualityDegradesBySix_WhenNotPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: 5, quality: 10, name: "Conjured Ice Cream")]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(4, items[0].Quality);
+    }
+
+    [Fact]
+    public void ConjuredIceCreamQualityDegradesByTwelve_WhenPastSellByDate()
+    {
+        var (app, items) = CreateGildedRose([Conjured(sellIn: 0, quality: 20, name: "Conjured Ice Cream")]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(8, items[0].Quality);
+    }
+
+    [Fact]
     public void NameStartingWithConjuredButNoSpace_IsTreatedAsStandardItem()
     {
         var (app, items) = CreateGildedRose([new Item { Name = "ConjuredFoo", SellIn = 5, Quality = 10 }]);
@@ -301,6 +353,8 @@ public class GildedRoseTests
     private Item BackstagePass(int sellIn = 5, int quality = 5, string name = "Backstage passes to a TAFKAL80ETC concert") => new() { Name = name, SellIn = sellIn, Quality = quality };
 
     private Item VipBackstagePass(int sellIn = 5, int quality = 5) => new() { Name = "Backstage passes to VIP Area", SellIn = sellIn, Quality = quality };
+
+    private Item IceCream(int sellIn = 5, int quality = 10) => new() { Name = "Ice Cream", SellIn = sellIn, Quality = quality };
 
     private Item Conjured(int sellIn = 5, int quality = 10, string name = "Conjured Item") => new() { Name = name, SellIn = sellIn, Quality = quality };
 }

@@ -18,6 +18,7 @@ public class ItemRegistry
         RegisterItem("Backstage passes", new BackstagePassesUpdate());
         RegisterItem("Backstage passes to VIP Area", new VipBackstagePassesUpdate());
         RegisterItem("Sulfuras, Hand of Ragnaros", new SulfurasUpdate());
+        RegisterItem("Ice Cream", new IceCreamUpdate());
     }
 
     public IUpdateItem FindUpdater(Item item)
