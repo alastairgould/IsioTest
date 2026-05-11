@@ -106,7 +106,8 @@ automatically due to decorator + modifier system.
 - Inside the ItemRegistry.FindUpdater method I've implemented some custom lookup logic and cache.
 Originally this was just dictionary lookup(O(1)). However this could not support the
 modifier(Conjured) system or handling backstage passes generically. This means the first lookup is
-not as performant but the 2nd lookup will be O(1).
+not as performant but the 2nd lookup will be O(1). The cache is not acutally needed at this level, however it could
+allow it scale up to thousands of different registered items, and lookups.
 
 - I've implemented conjured as a decorator. This adds some complexity, but it does mean this
 decorator can automatically work with all item updaters that decrease quality. For example 
@@ -115,6 +116,9 @@ I've added the ice cream item which degrades in a different way to standard item
 - Using "Conjured" name by itself is just a standard item without the conjured modifier. For the modifier 
 to work it needs to be combined with an existing item. This to avoid some additional code 
 complexity. But it would not be hard to add.
+
+- The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the 
+"Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
 
 - The way item matching works means that "Aged Brie Wheel of Cheddar" will match to the 
 "Aged Brie" item updater. Not allowing this would break generic handling of backstage passes without additional code complexity and edge cases.
