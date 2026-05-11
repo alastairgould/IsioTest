@@ -405,6 +405,20 @@ public class GildedRoseTests
         Assert.Equal(9, items[0].Quality);
     }
 
+    [Fact]
+    public void MultipleItemsAreEachUpdated_WhenADayPasses()
+    {
+        var (app, items) = CreateGildedRose([
+            GenericItem(sellIn: 5, quality: 10),
+            AgedBrie(sellIn: 5, quality: 10),
+        ]);
+
+        app.UpdateQuality();
+
+        Assert.Equal(9, items[0].Quality);
+        Assert.Equal(11, items[1].Quality);
+    }
+
     private (GildedRose, IList<Item>) CreateGildedRose(IList<Item> Items) => (new GildedRose(Items), Items);
 
     private Item GenericItem(string name = "foo", int sellIn = 2, int quality = 0) => new() { Name = name, SellIn = sellIn, Quality = quality };
