@@ -12,7 +12,9 @@ public class ItemRegistry
 
     private readonly Dictionary<string, IUpdateItem> Cache = new(StringComparer.OrdinalIgnoreCase);
 
-    private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, IUpdateItem> ItemUpdaters = new(
+        StringComparer.OrdinalIgnoreCase
+    );
 
     public ItemRegistry()
     {
@@ -31,13 +33,15 @@ public class ItemRegistry
         }
 
         const string conjuredPrefix = "Conjured ";
-        var isConjured = item.Name.StartsWith(conjuredPrefix , StringComparison.OrdinalIgnoreCase);
-        var name = isConjured ? item.Name.Substring(conjuredPrefix.Length) : item.Name;
+        var isConjured = item.Name.StartsWith(conjuredPrefix, StringComparison.OrdinalIgnoreCase);
+        var name = isConjured ? item.Name[conjuredPrefix.Length..] : item.Name;
 
-        var bestMatchKey = ItemUpdaters.Keys
-            .OrderByDescending(k => k.Length)
-            .FirstOrDefault(k => name.Equals(k, StringComparison.OrdinalIgnoreCase)
-                              || name.StartsWith(k + " ", StringComparison.OrdinalIgnoreCase));
+        var bestMatchKey = ItemUpdaters
+            .Keys.OrderByDescending(k => k.Length)
+            .FirstOrDefault(k =>
+                name.Equals(k, StringComparison.OrdinalIgnoreCase)
+                || name.StartsWith(k + " ", StringComparison.OrdinalIgnoreCase)
+            );
 
         var strategy = bestMatchKey != null ? ItemUpdaters[bestMatchKey] : DefaultUpdater;
         var updater = isConjured ? new ConjuredModifier(strategy) : strategy;
@@ -46,3 +50,4 @@ public class ItemRegistry
 
     private void RegisterItem(string name, IUpdateItem updater) => ItemUpdaters[name] = updater;
 }
+
